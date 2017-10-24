@@ -2,11 +2,16 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Sky extends JPanel {
@@ -16,21 +21,24 @@ public class Sky extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final int NUMBER_OF_SNOW = 100;
-	private static final Color SNOW_COLOR = Color.WHITE;
+	private static final Color SNOW_COLOR = Color.white;
 	private static final Color SKY_COLOR = new Color(107, 146, 185);
 
 	private Color color;
 	private List<Snow> listSnows;
-	private static List<Integer> sizes;
+	private int width;
+	private int height;
 
-	public Sky() {
-
+	public Sky(int width, int height) {
+		this.width = width;
+		this.height = height;
 	}
 
-	public Sky(Color color) {
+	public Sky(Color color, int width, int height) {
 		this.color = color;
 		this.listSnows = new ArrayList<Snow>();
+		this.width = width;
+		this.height = height;
 	}
 
 	public Sky(Color color, List<Snow> listSnows) {
@@ -38,36 +46,31 @@ public class Sky extends JPanel {
 		this.listSnows = listSnows;
 	}
 
-	public void init(Graphics graphic) {
-		for (int i = 0; i < NUMBER_OF_SNOW; i++) {
-			int x = getRandomValue(1, 1000);
-			int y = getRandomValue(1, 700);
-			listSnows.add(new Snow(x, y, 10, 10));
-		}
-	}
-
 	@Override
 	protected void paintComponent(Graphics graphic) {
 		graphic.setColor(SKY_COLOR);
-		graphic.fillRect(0, 0, 1000, 700);
-		this.listSnows = new ArrayList<Snow>();
-		this.sizes = new ArrayList<Integer>();
-		for (int i = 0; i < NUMBER_OF_SNOW; i++) {
-			Snow snow = listSnows.get(i);
-			snow.setX(snow.getX()+1);
-			snow.setY(snow.getY()+1);
-			graphic.fillOval((int)snow.getY(), (int)snow.getX(), 10, 10);
-		}
-		Toolkit.getDefaultToolkit().sync();
-	}
+		graphic.fillRect(0, 0, width, height);
 
-	public static int getRandomValue(int minValue, int maxValue) {
-		Random random = new Random();
-		int result = random.nextInt(maxValue);
-		while (result < minValue) {
-			result = random.nextInt(maxValue);
+		URL url = getClass().getClassLoader().getResource("image/winter.jpg");
+		Image image = null;
+		try {
+			image = ImageIO.read(new File(url.getFile()));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return result;
+		graphic.drawImage(image, 0, 0, this);
+		
+		for (int i = 0; i < listSnows.size(); i++) {
+			if (i == 1) {
+				System.out.println(listSnows.get(i));
+			}
+			Snow snow = listSnows.get(i);
+			snow.setX(snow.getX() + 1);
+			graphic.setColor(SNOW_COLOR);
+			graphic.fillOval((int) snow.getY(), (int) snow.getX(), (int) snow.getWidth(), (int) snow.getWidth());
+		}
+
+		Toolkit.getDefaultToolkit().sync();
 	}
 
 	public void dropSnow() {
