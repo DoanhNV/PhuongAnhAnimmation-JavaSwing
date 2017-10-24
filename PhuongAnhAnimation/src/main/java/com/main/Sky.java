@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Sky extends JPanel {
@@ -28,10 +27,17 @@ public class Sky extends JPanel {
 	private List<Snow> listSnows;
 	private int width;
 	private int height;
+	private Bird bird;
+	private Bird bird2;
+	private int indexOfBirdStep;
+
 
 	public Sky(int width, int height) {
 		this.width = width;
 		this.height = height;
+		bird = new Bird();
+		bird2 = new Bird();
+		indexOfBirdStep = 0;
 	}
 
 	public Sky(Color color, int width, int height) {
@@ -39,6 +45,9 @@ public class Sky extends JPanel {
 		this.listSnows = new ArrayList<Snow>();
 		this.width = width;
 		this.height = height;
+		bird = new Bird();
+		indexOfBirdStep = 0;
+		bird2 = new Bird();
 	}
 
 	public Sky(Color color, List<Snow> listSnows) {
@@ -59,11 +68,9 @@ public class Sky extends JPanel {
 			e.printStackTrace();
 		}
 		graphic.drawImage(image, 0, 0, this);
-		
+		drawBird(graphic);
+		drawBird2(graphic);
 		for (int i = 0; i < listSnows.size(); i++) {
-			if (i == 1) {
-				System.out.println(listSnows.get(i));
-			}
 			Snow snow = listSnows.get(i);
 			snow.setX(snow.getX() + 1);
 			graphic.setColor(SNOW_COLOR);
@@ -71,6 +78,14 @@ public class Sky extends JPanel {
 		}
 
 		Toolkit.getDefaultToolkit().sync();
+	}
+
+	public void drawBird(Graphics graphic) {
+		graphic.drawImage(this.bird.getImages().get(indexOfBirdStep), this.bird.getxBird(), this.bird.getyBird(), this);
+	}
+	
+	public void drawBird2(Graphics graphic) {
+		graphic.drawImage(this.bird2.getImages().get(indexOfBirdStep), this.bird2.getxBird(), this.bird2.getyBird(), this);
 	}
 
 	public void dropSnow() {
@@ -93,4 +108,28 @@ public class Sky extends JPanel {
 		this.listSnows = listSnows;
 	}
 
+	public Bird getBird() {
+		return bird;
+	}
+
+	public void setBird(Bird bird) {
+		this.bird = bird;
+	}
+
+	public int getIndexOfBird() {
+		return indexOfBirdStep;
+	}
+
+	public void setIndexOfBird(int indexOfBird) {
+		this.indexOfBirdStep = indexOfBird;
+	}
+
+	public Bird getBird2() {
+		return bird2;
+	}
+
+	public void setBird2(Bird bird2) {
+		this.bird2 = bird2;
+	}
+	
 }
