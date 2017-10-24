@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Phuong_Anh_Animation/src/main/java"/>
+	<classpathentry kind="src" path="Phuong_Anh_Animation/src/test/java"/>
+	<classpathentry kind="src" path="PhuongAnhAnimation/src/main/java"/>
+	<classpathentry kind="src" path="PhuongAnhAnimation/src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="PhuongAnhAnimation/target/classes"/>
+</classpath>
