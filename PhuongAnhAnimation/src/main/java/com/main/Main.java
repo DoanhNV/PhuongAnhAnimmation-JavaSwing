@@ -20,7 +20,7 @@ public class Main extends JFrame {
 	private static final int NUMBER_OF_SNOW = 300;
 	private static final int INDEX_OF_START_BIRD = 0;
 	private static final int X_BIRD = 0;
-	private static final int Y_BIRD = 200;
+	private static final int Y_BIRD = 0;
 	private static final String TITLE = "Snow Annimation";
 	private int width;
 	private int height;
@@ -37,7 +37,7 @@ public class Main extends JFrame {
 		sky.getBird().setxBird(X_BIRD);
 		sky.getBird().setyBird(Y_BIRD);
 		sky.getBird2().setxBird(X_BIRD);
-		sky.getBird2().setyBird(Y_BIRD+200);
+		sky.getBird2().setyBird(Y_BIRD+15);
 		this.add(sky);
 		this.setVisible(true);
 		this.dropSnow(sky);

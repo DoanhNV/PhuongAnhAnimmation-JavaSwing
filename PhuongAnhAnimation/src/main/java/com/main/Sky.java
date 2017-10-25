@@ -22,7 +22,6 @@ public class Sky extends JPanel {
 
 	private static final Color SNOW_COLOR = Color.white;
 	private static final Color SKY_COLOR = new Color(107, 146, 185);
-	private static final int SPEED_OF_SNOW = 4;
 
 	private Color color;
 	private List<Snow> listSnows;
@@ -73,7 +72,7 @@ public class Sky extends JPanel {
 		drawBird2(graphic);
 		for (int i = 0; i < listSnows.size(); i++) {
 			Snow snow = listSnows.get(i);
-			snow.setX(snow.getX() + SPEED_OF_SNOW);
+			snow.setX(snow.getX() + 1);
 			graphic.setColor(SNOW_COLOR);
 			graphic.fillOval((int) snow.getY(), (int) snow.getX(), (int) snow.getWidth(), (int) snow.getWidth());
 		}
